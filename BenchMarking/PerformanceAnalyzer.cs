@@ -11,6 +11,15 @@ namespace BenchMarking
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
+            //Merge sort
+            Stopwatch mergeSortTimer = new();
+            var arrayToMergeSort = (int[])input.Clone();
+            mergeSortTimer.Start();
+            SortManager.MergeSort(arrayToMergeSort,0, input.Length - 1);
+            mergeSortTimer.Stop();
+            Console.WriteLine($"Mechanism: {nameof(SortManager.MergeSort)} | Time taken: {mergeSortTimer.ElapsedMilliseconds}ms \n");
+
+
             //Selection sort
             Stopwatch insertionSortTimer = new();
             var arrayToSort = (int[])input.Clone();

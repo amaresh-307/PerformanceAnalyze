@@ -55,14 +55,58 @@ namespace BenchMarking
             {
                 int key = nums[i];
                 int j = i - 1;
-                while(j >= 0 && nums[j] > key)
+                while (j >= 0 && nums[j] > key)
                 {
                     nums[j + 1] = nums[j];
                     j--;
                 }
-                nums[j+1] = key;
+                nums[j + 1] = key;
             }
             return nums;
         }
+
+        #region Merge Sort
+        public static int[] MergeSort(int[] nums, int left, int right)
+        {
+            if(left < right)
+            {
+                int mid = (right + left) / 2;
+                MergeSort(nums, left, mid);
+                MergeSort(nums, mid+1, right);
+                Merge(nums, left, mid, right);
+            }
+            return nums;
+        }
+        public static void Merge(int[] nums, int left, int mid, int right)
+        {
+            int[] leftArr = new int[mid - left + 1];
+            int[] rightArr = new int[right - mid];
+            for (int i = 0; i < leftArr.Length; i++)
+            {
+                leftArr[i] = nums[left+i];
+            }
+            for (int j = 0; j < rightArr.Length; j++)
+            {
+                rightArr[j] = nums[leftArr.Length + j];
+            }
+            int m = 0; int n = 0;int k = 0;
+            while(m < leftArr.Length && n < rightArr.Length)
+            {
+                if (leftArr[m] <= rightArr[n])
+                {
+                    nums[k++] = leftArr[m++];
+                }
+                else
+                {
+                    nums[k++] = rightArr[n++];
+                }
+            }
+            while(m < leftArr.Length)
+            {
+                nums[k++] = nums[m++];
+            }
+        }
+
+        #endregion Merge sort
     }
 }
