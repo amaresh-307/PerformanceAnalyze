@@ -11,6 +11,15 @@ namespace BenchMarking
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
+            //Quick sort with Lomuto partition
+            Stopwatch LomutoQuickSortTimer = new();
+            var arrayToQuickSort = (int[])input.Clone();
+            LomutoQuickSortTimer.Start();
+            SortManager.QuickSortWithLomutoPartition(arrayToQuickSort, 0, input.Length - 1);
+            LomutoQuickSortTimer.Stop();
+            Console.WriteLine($"Mechanism: {nameof(SortManager.QuickSortWithLomutoPartition)} | Time taken: {LomutoQuickSortTimer.ElapsedMilliseconds}ms \n");
+
+
             //Merge sort
             Stopwatch mergeSortTimer = new();
             var arrayToMergeSort = (int[])input.Clone();
@@ -18,7 +27,6 @@ namespace BenchMarking
             SortManager.MergeSort(arrayToMergeSort,0, input.Length - 1);
             mergeSortTimer.Stop();
             Console.WriteLine($"Mechanism: {nameof(SortManager.MergeSort)} | Time taken: {mergeSortTimer.ElapsedMilliseconds}ms \n");
-
 
             //Selection sort
             Stopwatch insertionSortTimer = new();
@@ -44,7 +52,6 @@ namespace BenchMarking
             bubbleSortTimer.Stop();
             Console.WriteLine($"Mechanism: {nameof(SortManager.BubbleSort)} | Time taken: {bubbleSortTimer.ElapsedMilliseconds}ms \n");
 
-           
             Console.ForegroundColor = ConsoleColor.White;
         }
 

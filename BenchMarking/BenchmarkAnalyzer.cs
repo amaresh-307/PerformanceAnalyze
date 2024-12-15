@@ -11,7 +11,7 @@ namespace BenchMarking
     {
         //[ParamsSource(nameof(GetDynamicData))]
         public int[] InputArray;
-        [Params(100)]
+        [Params(100)] // update the params in order to test for different numbers of elements
         public int ArraySize;
 
         [GlobalSetup]
@@ -25,6 +25,26 @@ namespace BenchMarking
         public void AnalyzeBubbleSort()
         {
             SortManager.BubbleSort(InputArray, InputArray.Length);
+        }
+        [Benchmark]
+        public void AnalyzeInsertionSort()
+        {
+            SortManager.InsertionSort(InputArray, InputArray.Length);
+        }
+        [Benchmark]
+        public void AnalyzeSelectionSort()
+        {
+            SortManager.SelectionSort(InputArray, InputArray.Length);
+        }
+        [Benchmark]
+        public void AnalyzeMergeSort()
+        {
+            SortManager.MergeSort(InputArray, 0, InputArray.Length - 1);
+        }
+        [Benchmark]
+        public void AnalyzeQuickSortWithLomutoPartition()
+        {
+            SortManager.QuickSortWithLomutoPartition(InputArray, 0, InputArray.Length - 1);
         }
     }
 }

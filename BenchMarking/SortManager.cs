@@ -105,8 +105,41 @@ namespace BenchMarking
             {
                 nums[k++] = nums[m++];
             }
+            while (m < rightArr.Length)
+            {
+                nums[k++] = nums[n++];
+            }
         }
 
         #endregion Merge sort
+
+        #region Quick Sort
+        public static void QuickSortWithLomutoPartition(int[] nums, int low, int high) {
+            if(low < high)
+            {
+               int pivotPosition = LomutoPartition(nums, low, high);
+                QuickSortWithLomutoPartition(nums, low, pivotPosition - 1);
+                QuickSortWithLomutoPartition(nums, pivotPosition + 1, high);
+            }
+        }
+
+        //461,3,4,1,45,2,53
+        public static int LomutoPartition(int[] nums, int low, int high) {
+            int i = low - 1;
+            int pivot = nums[high];
+
+            for(int j = low;j <= high-1;j++)
+            {
+                if (nums[j] < pivot)
+                {
+                    i++; // If a smaller element is found then increase the size of smaller elements' window and swap.
+                    (nums[i], nums[j]) = (nums[j], nums[i]);
+                }
+            }
+            (nums[i+1], nums[high]) = (nums[high], nums[i+1]); // put the pivot in correct place i.e, after the smaller elements.
+            return i+1;
+        }
+
+        #endregion Quick Sort
     }
 }
