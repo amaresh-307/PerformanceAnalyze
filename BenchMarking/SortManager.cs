@@ -114,12 +114,23 @@ namespace BenchMarking
         #endregion Merge sort
 
         #region Quick Sort
-        public static void QuickSortWithLomutoPartition(int[] nums, int low, int high) {
+        public static void QuickSortWithLomutoPartition(int[] nums, int low, int high) 
+        {
             if(low < high)
             {
                int pivotPosition = LomutoPartition(nums, low, high);
                 QuickSortWithLomutoPartition(nums, low, pivotPosition - 1);
                 QuickSortWithLomutoPartition(nums, pivotPosition + 1, high);
+            }
+        }
+
+        public static void QuickSortWithHoarePartition(int[] nums, int low, int high)
+        {
+            if (low < high)
+            {
+                int middle = HoarePartition(nums, low, high); //does not return the pivot position
+                QuickSortWithHoarePartition(nums, low, middle);
+                QuickSortWithHoarePartition(nums, middle + 1, high);
             }
         }
 
@@ -140,6 +151,81 @@ namespace BenchMarking
             return i+1;
         }
 
+        //5,461,3,4,1,45,2,53
+        public static int HoarePartition(int[] nums, int low, int high)
+        {
+            int i = low - 1;int j = high + 1;
+            int pivot = nums[low];
+
+            while(true)
+            {
+                do
+                {
+                    i++;
+                } while (nums[i] < pivot);
+                do
+                {
+                    j--;
+                } while (nums[j] > pivot);
+                if (i >= j) return j;
+                (nums[i], nums[j]) = (nums[j], nums[i]);
+            }
+        }
+
         #endregion Quick Sort
+
+        #region Cycle Sort
+
+        public static int[] CycleSort(int[] nums, int n)
+        {
+            for (int cstart = 0; cstart < n - 1; cstart++)
+            {
+                int item = nums[cstart];
+                int pos = cstart;
+                for (int i = cstart + 1; i < n; i++)
+                {
+                    if (nums[i] < item)
+                    {
+                        pos++;
+                    }
+                }
+
+                if (pos == cstart) continue;
+
+                while (nums[pos] == item)
+                {
+                    pos++;
+                }
+
+                if(pos != cstart)
+                {
+                    (item, nums[pos]) = (nums[pos], item);
+                }
+
+                while(pos != cstart)
+                {
+                    pos =cstart;
+
+                    for(int i = cstart + 1;i < n;i++)
+                    {
+                        if (nums[i] < item) { 
+                            pos++;
+                        }
+                    }
+                    while (nums[pos] == item)
+                    {
+                        pos++;
+                    }
+
+                    if(item != nums[pos])
+                    {
+                        (item, nums[pos]) = (nums[pos], item);
+                    }
+                }
+
+            }
+            return nums;
+        }
+        #endregion
     }
 }

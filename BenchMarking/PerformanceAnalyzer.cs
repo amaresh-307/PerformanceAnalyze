@@ -10,14 +10,33 @@ namespace BenchMarking
         public void Analyze()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            //Cyclet sort
+            Stopwatch cycleSortTimer = new();
+            var arrayToCycleSort = (int[])input.Clone();
+            cycleSortTimer.Start();
+            SortManager.CycleSort(arrayToCycleSort, input.Length);
+            cycleSortTimer.Stop();
+            Console.WriteLine($"Mechanism: 🚲 Sort | Time taken: {cycleSortTimer.ElapsedMilliseconds}ms \n");
+
+
+            //Quick sort with Hoare partition
+            Stopwatch hoareQuickSortTimer = new();
+            var arrayToHoareQuickSort = (int[])input.Clone();
+            hoareQuickSortTimer.Start();
+            SortManager.QuickSortWithHoarePartition(arrayToHoareQuickSort, 0, input.Length - 1);
+            hoareQuickSortTimer.Stop();
+            Console.WriteLine($"Mechanism: {nameof(SortManager.QuickSortWithHoarePartition)} | Time taken: {hoareQuickSortTimer.ElapsedMilliseconds}ms \n");
+
 
             //Quick sort with Lomuto partition
-            Stopwatch LomutoQuickSortTimer = new();
+            Stopwatch lomutoQuickSortTimer = new();
             var arrayToQuickSort = (int[])input.Clone();
-            LomutoQuickSortTimer.Start();
+            lomutoQuickSortTimer.Start();
             SortManager.QuickSortWithLomutoPartition(arrayToQuickSort, 0, input.Length - 1);
-            LomutoQuickSortTimer.Stop();
-            Console.WriteLine($"Mechanism: {nameof(SortManager.QuickSortWithLomutoPartition)} | Time taken: {LomutoQuickSortTimer.ElapsedMilliseconds}ms \n");
+            lomutoQuickSortTimer.Stop();
+            Console.WriteLine($"Mechanism: {nameof(SortManager.QuickSortWithLomutoPartition)} | Time taken: {lomutoQuickSortTimer.ElapsedMilliseconds}ms \n");
 
 
             //Merge sort

@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BenchMarking
 {
+    [ShortRunJob]
+    //[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+    [MemoryDiagnoser]
     public class BenchmarkAnalyzer
     {
         //[ParamsSource(nameof(GetDynamicData))]
@@ -22,29 +26,41 @@ namespace BenchMarking
         }
 
         [Benchmark]
-        public void AnalyzeBubbleSort()
+        public void BubbleSort()
         {
             SortManager.BubbleSort(InputArray, InputArray.Length);
         }
         [Benchmark]
-        public void AnalyzeInsertionSort()
+        public void InsertionSort()
         {
             SortManager.InsertionSort(InputArray, InputArray.Length);
         }
+        //[Benchmark(Baseline =true)]
         [Benchmark]
-        public void AnalyzeSelectionSort()
+        public void SelectionSort()
         {
             SortManager.SelectionSort(InputArray, InputArray.Length);
         }
         [Benchmark]
-        public void AnalyzeMergeSort()
+        public void MergeSort()
         {
             SortManager.MergeSort(InputArray, 0, InputArray.Length - 1);
         }
         [Benchmark]
-        public void AnalyzeQuickSortWithLomutoPartition()
+        public void QuickSort_LomutoPartition()
         {
             SortManager.QuickSortWithLomutoPartition(InputArray, 0, InputArray.Length - 1);
+        }
+        [Benchmark]
+        public void QuickSort_HoarePartition()
+        {
+            SortManager.QuickSortWithHoarePartition(InputArray, 0, InputArray.Length - 1);
+        }
+
+        [Benchmark]
+        public void CycleSort()
+        {
+            SortManager.CycleSort(InputArray, InputArray.Length);
         }
     }
 }
