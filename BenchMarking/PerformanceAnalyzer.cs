@@ -71,6 +71,13 @@ namespace BenchMarking
             bubbleSortTimer.Stop();
             Console.WriteLine($"Mechanism: {nameof(SortManager.BubbleSort)} | Time taken: {bubbleSortTimer.ElapsedMilliseconds}ms \n");
 
+            //Heap sort
+            Stopwatch heapSortTimer = new();
+            var arrayToHeapSort = (int[])input.Clone();
+            heapSortTimer.Start();
+            SortManager.HeapSort(arrayToHeapSort, input.Length);
+            heapSortTimer.Stop();
+            Console.WriteLine($"Mechanism: {nameof(SortManager.HeapSort)} | Time taken: {heapSortTimer.ElapsedMilliseconds}ms \n");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
